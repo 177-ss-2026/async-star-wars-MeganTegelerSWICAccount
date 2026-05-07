@@ -1,21 +1,7 @@
-const output = document.querySelector("#output");
-const select = document.querySelector("#sw-select");
+const data = await resp.json();
 
-select.addEventListener("change", async (event) => {
-  const category = event.target.value;
-  if (!category) return;
+const html = data
+  .map((item) => `<li>${item.name ? item.name : item.title}</li>`)
+  .join("");
 
-  // Loading state
-  output.textContent = `Loading ${category}...`;
-
-  const resp = await fetch(`https://swapi.info/api/${category}/`);
-
-  if (!resp.ok) {
-    output.textContent = `Something went wrong. Status: ${resp.status}`;
-    return;
-  }
-
-  const data = await resp.json();
-  console.info(data);
-  output.textContent = `Loaded ${data.length} results.`;
-});
+output.innerHTML = `<ul>${html}</ul>`;
