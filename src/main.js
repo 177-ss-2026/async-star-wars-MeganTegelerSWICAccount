@@ -9,5 +9,4 @@ async function getPlanet(id) {
   const data = await resp.json();
   console.info(data);
 }
-
 getPlanet(999); // Bad ID — watch the console
