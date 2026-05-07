@@ -1,7 +1,24 @@
-const data = await resp.json();
+const output = document.querySelector("#output");
+const select = document.querySelector("#sw-select");
 
-const html = data
-  .map((item) => `<li>${item.name ? item.name : item.title}</li>`)
-  .join("");
+select.addEventListener("change", async (event) => {
+  const category = event.target.value;
+  if (!category) return;
 
-output.innerHTML = `<ul>${html}</ul>`;
+  // Loading state
+  output.textContent = `Loading ${category}...`;
+
+  const resp = await fetch(`https://swapi.info/api/${category}/`);
+
+  if (!resp.ok) {
+    output.textContent = `Something went wrong. Status: ${resp.status}`;
+    return;
+  }
+
+  const data = await resp.json();
+  const html = data
+    .map((item) => `<li>${item.name ? item.name : item.title}</li>`)
+    .join("");
+
+  output.innerHTML = `<ul>${html}</ul>`;
+});
