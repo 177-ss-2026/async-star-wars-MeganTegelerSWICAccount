@@ -1,4 +1,5 @@
 const output = document.querySelector("#output");
+const select = document.querySelector("#sw-select");
 
 select.addEventListener("change", async (event) => {
   const category = event.target.value;
